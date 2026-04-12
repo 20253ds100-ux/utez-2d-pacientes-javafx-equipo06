@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.equipo06.pacientes.controller.PacienteController">
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+
+    <HBox spacing="20">
+        <VBox spacing="10" prefWidth="300">
+            <Label text="Registro de Paciente" style="-fx-font-weight: bold"/>
+            <TextField fx:id="txtCurp" promptText="CURP"/>
+            <TextField fx:id="txtNombre" promptText="Nombre completo"/>
+            <TextField fx:id="txtEdad" promptText="Edad"/>
+            <TextField fx:id="txtTelefono" promptText="Teléfono"/>
+            <TextField fx:id="txtAlergias" promptText="Alergias"/>
+            <Button text="Guardar Paciente" onAction="#btnGuardarAction" maxWidth="Infinity"/>
+
+            <Separator/>
+            <Label text="Resumen" style="-fx-font-weight: bold"/>
+            <Label fx:id="lblTotal" text="Total: 0"/>
+            <Label fx:id="lblActivos" text="Activos: 0"/>
+            <Label fx:id="lblInactivos" text="Inactivos: 0"/>
+        </VBox>
+
+        <VBox spacing="10" HBox.hgrow="ALWAYS">
+            <TableView fx:id="tblPacientes" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="colCurp" text="CURP" prefWidth="100"/>
+                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+                    <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
+                    <TableColumn fx:id="colStatus" text="Estatus" prefWidth="80"/>
+                </columns>
+            </TableView>
+            <HBox spacing="10">
+                <Button text="Cambiar Estatus (Activo/Inactivo)" onAction="#btnCambiarEstatusAction"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>
