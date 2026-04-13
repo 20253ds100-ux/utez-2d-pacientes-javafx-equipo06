@@ -32,6 +32,43 @@ public class PacienteController {
         tblPacientes.setItems(repository.getListaPacientes());
         actualizarResumen();
     }
+    @FXML
+    private void btnEditarAction() {
+        Paciente seleccionado = tblPacientes.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            // Cargamos los datos de la tabla a los campos de texto
+            txtCurp.setText(seleccionado.getCurp());
+            txtNombre.setText(seleccionado.getNombre());
+            txtEdad.setText(String.valueOf(seleccionado.getEdad()));
+            txtTelefono.setText(seleccionado.getTelefono());
+            txtAlergias.setText(seleccionado.getAlergias());
+
+            // El botón de Guardar ahora servirá para actualizar gracias al ID (CURP)
+            mostrarAlerta("Modo Edición", "Modifica los datos y presiona 'Guardar' para actualizar.");
+        } else {
+            mostrarAlerta("Atención", "Selecciona un paciente para editar.");
+        }
+    }
+
+    @FXML
+    private void btnEliminarAction() {
+        Paciente seleccionado = tblPacientes.getSelectionModel().getSelectedItem();
+        if (seleccionado != null) {
+            // Creamos una alerta de confirmación (Punto B de la rúbrica)
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar eliminación");
+            confirmacion.setHeaderText(null);
+            confirmacion.setContentText("¿Estás seguro de que deseas eliminar a " + seleccionado.getNombre() + "?");
+
+            if (confirmacion.showAndWait().get() == ButtonType.OK) {
+                repository.getListaPacientes().remove(seleccionado);
+                repository.guardarArchivo();
+                actualizarResumen();
+            }
+        } else {
+            mostrarAlerta("Atención", "Selecciona un paciente para eliminar.");
+        }
+    }
 
     @FXML
     private void btnGuardarAction() {

@@ -36,7 +36,9 @@
                 </columns>
             </TableView>
             <HBox spacing="10">
-                <Button text="Cambiar Estatus (Activo/Inactivo)" onAction="#btnCambiarEstatusAction"/>
+                <Button text="Editar" onAction="#btnEditarAction" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
+                <Button text="Cambiar Estatus" onAction="#btnCambiarEstatusAction" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+                <Button text="Eliminar" onAction="#btnEliminarAction" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
             </HBox>
         </VBox>
     </HBox>
