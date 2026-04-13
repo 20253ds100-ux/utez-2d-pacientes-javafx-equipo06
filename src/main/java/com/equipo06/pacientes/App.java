@@ -9,18 +9,25 @@ import java.io.IOException;
 public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        // Esta línea busca tu archivo FXML en la carpeta de resources
+        // esta linea busca el archivo de diseño (el FXML) que hicimos para las pestañas
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("pacientes-view.fxml"));
 
-        // Creamos la ventana (Ancho 850, Alto 550)
+        //aqui creamos la escena (pestana) y le damos el tamaño a la ventana
+        // El 850 es el ancho y 550 es el alto
         Scene scene = new Scene(fxmlLoader.load(), 850, 550);
 
-        stage.setTitle("Consultorio Médico - Equipo 06");
+        //le ponemos el titulo que se vera arriba en la ventanita
+        stage.setTitle("Consultorio Medico - Equipo 06");
+
+        // metemos la escena en el escenario (stage)
         stage.setScene(scene);
+
+        //con esto mostramos la aplicacion en pantalla
         stage.show();
     }
 
     public static void main(String[] args) {
+        //este es el metodo que arranca toda la ejecucion de JavaFX
         launch();
     }
 }

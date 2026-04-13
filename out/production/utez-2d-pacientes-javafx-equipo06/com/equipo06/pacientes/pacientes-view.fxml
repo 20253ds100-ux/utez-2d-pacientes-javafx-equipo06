@@ -5,41 +5,84 @@
 
 <VBox spacing="10" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.equipo06.pacientes.controller.PacienteController">
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
 
-    <HBox spacing="20">
-        <VBox spacing="10" prefWidth="300">
-            <Label text="Registro de Paciente" style="-fx-font-weight: bold"/>
-            <TextField fx:id="txtCurp" promptText="CURP"/>
-            <TextField fx:id="txtNombre" promptText="Nombre completo"/>
-            <TextField fx:id="txtEdad" promptText="Edad"/>
-            <TextField fx:id="txtTelefono" promptText="Teléfono"/>
-            <TextField fx:id="txtAlergias" promptText="Alergias"/>
-            <Button text="Guardar Paciente" onAction="#btnGuardarAction" maxWidth="Infinity"/>
+    <TabPane tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <tabs>
+            <Tab text="Directorio de Pacientes">
+                <VBox spacing="15">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
 
-            <Separator/>
-            <Label text="Resumen" style="-fx-font-weight: bold"/>
-            <Label fx:id="lblTotal" text="Total: 0"/>
-            <Label fx:id="lblActivos" text="Activos: 0"/>
-            <Label fx:id="lblInactivos" text="Inactivos: 0"/>
-        </VBox>
+                    <Label text="Listado General de Pacientes" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
 
-        <VBox spacing="10" HBox.hgrow="ALWAYS">
-            <TableView fx:id="tblPacientes" prefHeight="400">
-                <columns>
-                    <TableColumn fx:id="colCurp" text="CURP" prefWidth="100"/>
-                    <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
-                    <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
-                    <TableColumn fx:id="colStatus" text="Estatus" prefWidth="80"/>
-                </columns>
-            </TableView>
-            <HBox spacing="10">
-                <Button text="Editar" onAction="#btnEditarAction" style="-fx-background-color: #f39c12; -fx-text-fill: white;"/>
-                <Button text="Cambiar Estatus" onAction="#btnCambiarEstatusAction" style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
-                <Button text="Eliminar" onAction="#btnEliminarAction" style="-fx-background-color: #e74c3c; -fx-text-fill: white;"/>
-            </HBox>
-        </VBox>
-    </HBox>
+                    <TableView fx:id="tblPacientes" VBox.vgrow="ALWAYS">
+                        <columns>
+                            <TableColumn fx:id="colCurp" text="CURP" prefWidth="100"/>
+                            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+                            <TableColumn fx:id="colEdad" text="Edad" prefWidth="50"/>
+                            <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
+                            <TableColumn fx:id="colAlergias" text="Alergias" prefWidth="120"/>
+                            <TableColumn fx:id="colStatus" text="Estatus" prefWidth="80"/>
+                        </columns>
+                    </TableView>
+
+                    <HBox spacing="20" alignment="CENTER_LEFT" style="-fx-background-color: #f4f4f4; -fx-padding: 10; -fx-background-radius: 5;">
+                        <VBox spacing="5">
+                            <Label fx:id="lblTotal" text="Total: 0" style="-fx-font-weight: bold;"/>
+                            <Label fx:id="lblActivos" text="Activos: 0" style="-fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+                            <Label fx:id="lblInactivos" text="Inactivos: 0" style="-fx-text-fill: #e74c3c; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <HBox spacing="10">
+                            <Button text="Editar" onAction="#btnEditarAction" prefWidth="100"
+                                    style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                            <Button text="Cambiar Estatus" onAction="#btnCambiarEstatusAction" prefWidth="130"
+                                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                            <Button text="Eliminar" onAction="#btnEliminarAction" prefWidth="100"
+                                    style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                        </HBox>
+                    </HBox>
+                </VBox>
+            </Tab>
+
+            <Tab text="Registro de Paciente">
+                <VBox spacing="20" alignment="TOP_CENTER">
+                    <padding>
+                        <Insets top="40" right="100" bottom="40" left="100"/>
+                    </padding>
+
+                    <Label text="Formulario de Registro / Edición" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+                    <GridPane vgap="15" hgap="10" alignment="CENTER">
+                        <Label text="CURP:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtCurp" promptText="Ingrese CURP" prefWidth="300" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Nombre:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtNombre" promptText="Nombre completo" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Edad:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtEdad" promptText="Ej: 25" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="Teléfono:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtTelefono" promptText="10 dígitos" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="Alergias:" GridPane.rowIndex="4" GridPane.columnIndex="0" style="-fx-font-weight: bold;"/>
+                        <TextField fx:id="txtAlergias" promptText="Ninguna / Polen / Medicamentos" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                    </GridPane>
+
+                    <HBox spacing="15" alignment="CENTER">
+                        <Button text="Guardar Paciente" onAction="#btnGuardarAction" prefWidth="180" prefHeight="40"
+                                style="-fx-background-color: #2ecc71; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <Button text="Limpiar / Nuevo" onAction="#limpiarFormulario" prefWidth="180" prefHeight="40"
+                                style="-fx-font-size: 14px;"/>
+                    </HBox>
+
+                    <Label text="* Los campos CURP, Nombre, Edad y Teléfono son obligatorios." style="-fx-font-size: 11px; -fx-text-fill: gray;"/>
+                </VBox>
+            </Tab>
+        </tabs>
+    </TabPane>
 </VBox>
