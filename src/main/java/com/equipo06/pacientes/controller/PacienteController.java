@@ -73,33 +73,46 @@ public class PacienteController {
             mostrarAlerta("Atencion", "Selecciona un paciente para eliminar.");
         }
     }
-
     @FXML
-    private void btnGuardarAction() { // El boton mas importante: Guardar
-        try {
-            int edad = Integer.parseInt(txtEdad.getText()); // Convertimos el texto de edad a numero
-            // Creamos un objeto temporal con lo que hay en los cuadritos
-            Paciente p = new Paciente(txtCurp.getText(), txtNombre.getText(), edad, txtTelefono.getText(), txtAlergias.getText(), "ACTIVO");
+    private void btnGuardarAction() {
+        String curp = txtCurp.getText();
+        String nombre = txtNombre.getText();
+        String edadStr = txtEdad.getText();
+        String tel = txtTelefono.getText();
+        String alergias = txtAlergias.getText();
 
-            if (modoEdicion) { // Si la bandera de edicion esta prendida...
-                repository.actualizarPaciente(p); // Usamos la funcion de actualizar
-                modoEdicion =false; // Apagamos la bandera
-                txtCurp.setEditable(true); // Dejamos que la CURP se pueda escribir otra vez
-                limpiarFormulario(); // Borramos todo
-                actualizarResumen(); // Actualizamos numeritos
-                tblPacientes.refresh(); // Refrescamos la tabla para que se vea el cambio
-                mostrarAlerta("Exito", "Paciente actualizado correctamente.");
-            } else { // Si es un paciente nuevo...
-                if (repository.agregarPaciente(p)) { // Intentamos agregarlo
-                    limpiarFormulario();
-                    actualizarResumen();
-                    mostrarAlerta("Exito", "Paciente registrado.");
-                } else {
-                    mostrarAlerta("Duplicado", "Ya existe un paciente con ese CURP.");
-                }
+        // --- ESTA ES LA PARTE QUE TE FALTA ---
+        // 1. Validar campos vacios
+        if (Validaciones.camposVacios(curp, nombre, edadStr, tel)) {
+            mostrarAlerta("Error", "Todos los campos son obligatorios");
+            return; // El 'return' hace que el codigo se detenga aqui y no guarde
+        }
+
+        // 2. Validar nombre (minimo 6 letras)
+        if (!Validaciones.nombreValido(nombre)) {
+            mostrarAlerta("Error", "El nombre debe tener mas de 5 letras");
+            return;
+        }
+
+        // 3. Validar telefono (exactamente 10 numeros)
+        if (!Validaciones.telefonoValido(tel)) {
+            mostrarAlerta("Error", "El telefono debe tener 10 digitos numericos");
+            return;
+        }
+
+        try {
+            int edad = Integer.parseInt(edadStr);
+            if (!Validaciones.edadValida(edad)) {
+                mostrarAlerta("Error", "La edad debe estar entre 0 y 120");
+                return;
             }
-        } catch (NumberFormatException e) { // Si pusieron letras en la edad, sale este error
-            mostrarAlerta("Error", "La edad debe ser un numero.");
+
+            // Si llego hasta aqui, todo esta bien y procedemos a guardar
+            Paciente nuevo = new Paciente(curp, nombre, edad, tel, alergias, "ACTIVO");
+            // ... (el resto de tu codigo de guardar que ya tenias)
+
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Error", "La edad debe ser un numero");
         }
     }
 

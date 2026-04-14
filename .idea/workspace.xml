@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="da99e9c6-b899-4193-9d1a-6be728d6985a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/utez-2d-pacientes-javafx-equipo06/com/equipo06/pacientes/pacientes-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/utez-2d-pacientes-javafx-equipo06/com/equipo06/pacientes/pacientes-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pacientes.csv" beforeDir="false" afterPath="$PROJECT_DIR$/pacientes.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/equipo06/pacientes/controller/PacienteController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/equipo06/pacientes/controller/PacienteController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +59,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "allison-maldonado",
     "kotlin-language-version-configured": "true",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Libraries",
