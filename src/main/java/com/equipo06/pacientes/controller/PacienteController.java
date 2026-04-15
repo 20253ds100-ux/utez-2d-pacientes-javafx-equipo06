@@ -81,20 +81,19 @@ public class PacienteController {
         String tel = txtTelefono.getText();
         String alergias = txtAlergias.getText();
 
-        // --- ESTA ES LA PARTE QUE TE FALTA ---
-        // 1. Validar campos vacios
-        if (Validaciones.camposVacios(curp, nombre, edadStr, tel)) {
-            mostrarAlerta("Error", "Todos los campos son obligatorios");
-            return; // El 'return' hace que el codigo se detenga aqui y no guarde
+        // validar los campos que estan vacios,para que sea obligatorio que todos los campos esten llenos
+        if (Validaciones.camposVacios(curp, nombre, edadStr, tel, alergias)) {
+            mostrarAlerta("Error", "Todos los campos (incluyendo alergias) son obligatorios");
+            return;
         }
 
-        // 2. Validar nombre (minimo 6 letras)
+        // validar el nombre de mas de 5 letras
         if (!Validaciones.nombreValido(nombre)) {
             mostrarAlerta("Error", "El nombre debe tener mas de 5 letras");
             return;
         }
 
-        // 3. Validar telefono (exactamente 10 numeros)
+        // validar el numero de telefono que sea exactamente de 10 numeros
         if (!Validaciones.telefonoValido(tel)) {
             mostrarAlerta("Error", "El telefono debe tener 10 digitos numericos");
             return;
@@ -106,13 +105,31 @@ public class PacienteController {
                 mostrarAlerta("Error", "La edad debe estar entre 0 y 120");
                 return;
             }
+            if (modoEdicion) {
+                // estamos editando los datos de nuestro paciente, creamos el objeto y actualizamos
+                Paciente pEditado = new Paciente(curp, nombre, edad, tel, alergias, "ACTIVO");
+                repository.actualizarPaciente(pEditado);
+                mostrarAlerta("Exito", "Paciente actualizado correctamente");
+            } else {
+                // agregamos o registramos a un nuevo paciente, intentamos agregarlo
+                Paciente nuevo = new Paciente(curp, nombre, edad, tel, alergias, "ACTIVO");
+                boolean exito = repository.agregarPaciente(nuevo);
 
-            // Si llego hasta aqui, todo esta bien y procedemos a guardar
-            Paciente nuevo = new Paciente(curp, nombre, edad, tel, alergias, "ACTIVO");
-            // ... (el resto de tu codigo de guardar que ya tenias)
+                if (exito) {
+                    mostrarAlerta("Exito", "Paciente registrado correctamente");
+                } else {
+                    mostrarAlerta("Error", "La CURP ya existe en el sistema");
+                    return;
+                }
+            }
+
+            // lo ocupamos para limpiar la pantalla y refrescando la tabla
+            limpiarFormulario();
+            tblPacientes.refresh();
+            actualizarResumen();
 
         } catch (NumberFormatException e) {
-            mostrarAlerta("Error", "La edad debe ser un numero");
+            mostrarAlerta("Error", "La edad debe ser un numero entero");
         }
     }
 

@@ -13,14 +13,14 @@ public class Validaciones {
         return false; // Si todos tienen algo escrito, todo bien
     }
 
-    //aqui checamos que el nombre no sea muy cortito (minimo 6 letras)
+    //aqui checamos que el nombre no sea muy cortito que tenga mas de 5 letras
     public static boolean nombreValido(String nombre){
         return nombre != null && nombre.trim().length() > 5;
     }
 
     //aqui validamos que la edad sea algo logico osea que no pongan -negativos o numeros muy grandes
     public static boolean edadValida(int edad){
-        return edad >= 0 && edad <= 120;
+        return edad > 0 && edad <= 120;
     }
 
     //checa que el telefono sea de 10 numeros
@@ -42,7 +42,7 @@ public class Validaciones {
         return true; //si paso las dos pruebas, el telefono es valido
     }
 
-    //checamos que la curp no este muy chiquita
+    //checamos que la curp no este muy chiquita o corta
     public static boolean curpValida(String curp){
         return curp != null && curp.length() >= 10;
     }
