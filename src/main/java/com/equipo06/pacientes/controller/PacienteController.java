@@ -55,22 +55,33 @@ public class PacienteController {
     }
 
     @FXML
-    private void btnEliminarAction() { //lo que pasa al picarle a Eliminar
+    private void btnEliminarAction() {
+        // Primero, revisamos qué paciente esta seleccionado en la tabla
         Paciente seleccionado = tblPacientes.getSelectionModel().getSelectedItem();
-        if (seleccionado !=null) {
-            //aqui ponemos un aviso de confirmacion para que no borren por error
+        // Si el usuario si selecciono a alguien (si no es nulo)
+        if (seleccionado != null) {
+            // Creamos una caja de mensaje para confirmar (para que no se borre por accidente)
             Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("Confirmar eliminacion");
-            confirmacion.setHeaderText(null);
-            confirmacion.setContentText("Estas seguro de que deseas eliminar a " + seleccionado.getNombre() + "?");
-
-            if (confirmacion.showAndWait().get() == ButtonType.OK) { //si el usuario le da a que si
-                repository.getListaPacientes().remove(seleccionado); // Lo quitamos de la lista
-                repository.guardarArchivo(); // Guardamos el cambio en el archivo
-                actualizarResumen(); // Recalculamos los totales
+            confirmacion.setTitle("Confirmar Inactivación"); // Titulo de la venta
+            confirmacion.setHeaderText(null); // Esto es para que no se vea doble texto arriba
+            // El mensaje que le pregunta al usuario si de verdad lo quiere inactivar
+            confirmacion.setContentText("¿Deseas marcar como INACTIVO a " + seleccionado.getNombre() + "?");
+            // Si el usuario le da clic al boton de "Aceptar" o "OK"
+            if (confirmacion.showAndWait().get() == ButtonType.OK) {
+                // Le pedimos al repositorio que lo marque como INACTIVO (borrado logico)
+                // No lo quitamos de la lista, solo le cambiamos su etiqueta de estatus
+                repository.eliminarPaciente(seleccionado);
+                // Le decimos a la tabla que se actualice para que se vea el cambio de texto
+                tblPacientes.refresh();
+                // Actualizamos los numeritos de arriba (Total, Activos, Inactivos)
+                actualizarResumen();
+                // Mostramos un aviso final de que todo salio bien
+                mostrarAlerta("Éxito", "El paciente ahora está INACTIVO");
             }
+
         } else {
-            mostrarAlerta("Atencion", "Selecciona un paciente para eliminar.");
+            // Si el usuario pico el boton pero no eligio a nadie en la tabla, le avisamos
+            mostrarAlerta("Atención", "Selecciona un paciente para eliminar.");
         }
     }
     @FXML
